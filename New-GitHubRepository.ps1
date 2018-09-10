@@ -2,39 +2,35 @@
 Function New-GitHubRepository {
   <#
     .SYNOPSIS
-    Describe purpose of "New-GitHubRepository" in 1-2 sentences.
+    Create remote GitHub repository.
 
     .DESCRIPTION
-    Add a more complete description of what the function does.
+    New-GitHubRepository uses a generated OATUH token from your GitHub uuser profile in conjunction with the PowerShell
+    Invoke-RestMethod Cmdlet to create a remote GitHub repository with the parameters specified in function call
 
     .PARAMETER AccessToken
-    Describe parameter -AccessToken.
+    GitHub Personal Access Token (OAUTH) generated in the develper settings of your GitHub profile
 
     .PARAMETER Name
-    Describe parameter -Name.
+    What you want the repository to be named
 
     .PARAMETER Description
-    Describe parameter -Description.
+    Description for the new repository
 
     .PARAMETER License
-    Describe parameter -License.
+    Type of license for repository. Defaults to MIT License
 
     .EXAMPLE
-    New-GitHubRepository -AccessToken Value -Name Value -Description Value -License Value
-    Describe what this call does
+    New-GitHubRepository -AccessToken $token -Name 'Test Repo' -Description 'Description of Test Repo' -License 'MIT'
 
     .NOTES
-    Place additional notes here.
+    *Eventually add switch for public or private repositories
+    *Add more parameters as needed
 
     .LINK
-    URLs to related sites
-    The first link is opened by Get-Help -Online New-GitHubRepository
+    Got idea and base code from:
+    https://mikefrobbins.com/2018/08/30/powershell-script-module-design-plaster-template-for-creating-modules/
 
-    .INPUTS
-    List of input types that are accepted by this function.
-
-    .OUTPUTS
-    List of output types produced by this function.
   #>
 
 
@@ -42,15 +38,15 @@ Function New-GitHubRepository {
     Param (
 
         [Parameter( Mandatory=$true,
-                    HelpMessage='Add help message for user')]
+                    HelpMessage='Personal access token (OAUTH) from GitHub profile')]
         [string]$AccessToken,
 
         [Parameter( Mandatory=$true,
-                    HelpMessage='Add help message for user')]
+                    HelpMessage='Name for the repository')]
         [string]$Name,
 
         [Parameter( Mandatory=$true,
-                    HelpMessage='Add help message for user')]
+                    HelpMessage='Description for repository')]
         [String]$Description,
 
         [String]$License = 'MIT'
