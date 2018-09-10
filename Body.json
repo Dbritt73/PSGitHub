@@ -1,0 +1,6 @@
+{
+"name" : "$Name",
+"description" : "$Description",
+"auto_init" : "true",
+"license_template" : "$License"
+}

@@ -1,4 +1,4 @@
-
+ 
 Function New-GitHubRepository {
   <#
     .SYNOPSIS
@@ -59,7 +59,10 @@ Function New-GitHubRepository {
 
     Begin {
 
-       $Header = @{
+        #Use any available TLS security level in case required for REST invocation
+        [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
+
+        $Header = @{
 
             'Accept' = 'application/vnd.github.symmetra-preview+json'
             'Authorization' = "token $AccessToken"
@@ -68,14 +71,10 @@ Function New-GitHubRepository {
 
         $uri = 'https://api.github.com/user/repos'
 
-        $body = @"
-        {
-        "name" : "$Name",
-        "description" : "$Description",
-        "auto_init" : "true",
-        "license_template" : "$License"
-        }
-"@
+        $body = Get-Content -Path "$PSScriptRoot\Body.json" -Raw
+
+        #Replace variable name place holder in the body content with the received parameter values in function call
+        $body = $ExecutionContext.InvokeCommand.ExpandString($body)
 
     }
 
